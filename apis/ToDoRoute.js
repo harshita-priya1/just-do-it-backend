@@ -31,4 +31,33 @@ router.post("/create", async (req,res) => {
     }
 });
 
+router.get("/get", async (req,res) => {
+    try {
+        const userId = req.body.userId;
+        let response = await TodoModel.find({userId:userId});
+        if(response){
+            res.status(200).json({data: response});
+        }
+        else{
+            res.json({message: "No data found!"});
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error while loading To-dos.", error: error});
+    }
+});
+
+router.delete("/delete", async (req,res) => {
+    try {
+        const todoId = req.body.todoId;
+        const deletedTodo = await TodoModel.findOneAndDelete({_id: todoId});
+        if(deletedTodo){
+            res.status(200).json({ message: 'To-do deleted successfully.', deletedTodo });
+        } else {
+            res.status(404).json({ message: 'To-do not found.' });
+        }      
+    } catch (error) {
+        res.status(500).json({ message: "Error while deleting To-dos.", error: error});
+    }
+});
+
 module.exports = router;
