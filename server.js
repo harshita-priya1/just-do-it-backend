@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 
 const UserRouter = require("./apis/UserRoute");
 const TodoRouter = require("./apis/ToDoRoute");
+const protect = require("./middlewares/protect");
+
 
 const app = express();
 
@@ -17,7 +19,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.use("/user", UserRouter);
-app.use("/todo", TodoRouter);
+app.use("/todo", protect, TodoRouter);
 
 app.get("/", (req,res) => {
     res.send("Welcome");
