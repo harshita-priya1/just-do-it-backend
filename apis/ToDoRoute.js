@@ -101,6 +101,7 @@ router.post("/modify", async (req, res) => {
     const todoId = req.body.todoId;
     const newContent = req.body.content;
     const newEndDate = req.body.endDate;
+    console.log(todoId, newContent, newEndDate);
     const todo = await TodoModel.findById(todoId);
     if (todo) {
       if (newEndDate) {
