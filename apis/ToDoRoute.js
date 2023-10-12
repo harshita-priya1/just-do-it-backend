@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const UserModel = require("../models/User");
+// const UserModel = require("../models/User");
 const TodoModel = require("../models/Todos");
 
 router.post("/create", async (req, res) => {
@@ -73,7 +73,7 @@ router.delete("/delete", async (req, res) => {
 router.post("/update", async (req, res) => {
   try {
     const todoId = req.body.todoId;
-    console.log(req.body);
+    // console.log(req.body);
     const todo = await TodoModel.findById(todoId);
     if (todo) {
       todo.status = !todo.status;
@@ -101,7 +101,7 @@ router.post("/modify", async (req, res) => {
     const todoId = req.body.todoId;
     const newContent = req.body.content;
     const newEndDate = req.body.endDate;
-    console.log(todoId, newContent, newEndDate);
+    // console.log(todoId, newContent, newEndDate);
     const todo = await TodoModel.findById(todoId);
     if (todo) {
       if (newEndDate) {

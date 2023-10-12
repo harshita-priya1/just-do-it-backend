@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
@@ -7,6 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const refreshTokenModel = require("../models/RefreshToken");
 const User = require("../models/User");
 
+const router = express.Router();
 
 router.post("/signup", (req, res) => {
   console.log(req.body);
@@ -20,7 +20,8 @@ router.post("/signup", (req, res) => {
     return res
       .status(400)
       .json({ status: "FAILED", message: "Please enter all fields" });
-  } else if (!/^[a-zA-Z ]*$/.test(name)) { // regex for validating name
+  } else if (!/^[a-zA-Z ]*$/.test(name)) {
+    // regex for validating name
     res.status(400).json({
       status: "FAILED",
       message: "Invalid name entered",
@@ -347,7 +348,7 @@ router.post("/forgot-password", async (req, res) => {
       },
     });
     await transporter.sendMail({
-      from: '"The Soil App" <soil.app.bit@gmail.com>', // sender address
+      from: '"Just Do It" <soil.app.bit@gmail.com>', // sender address
       to: user.email, // list of receivers
       subject: "Password Reset", // Subject line
       text: `Your password reset code is ${token}. Enter this code to reset your password. This code will expire in 1 hour. If you did not request this, please ignore this email and your password will remain unchanged.`, // plain text body
@@ -427,6 +428,5 @@ router.post("/reset-password", async (req, res) => {
     });
   }
 });
-
 
 module.exports = router;
